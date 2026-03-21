@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-// ── Particle Canvas (left side) ─────────────────────────────
+// ── Particle Canvas (left side) ──────────────────────────
 function ParticleCanvas() {
   const canvasRef = useRef(null);
   const mouseRef = useRef({ x: -1000, y: -1000 });
