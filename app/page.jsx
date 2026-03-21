@@ -221,7 +221,7 @@ export default function LoginPage() {
             </p>
             <div className="flex flex-wrap gap-2">
               {[
-                "🛍️ E-commerc",
+                "🛍️ E-commerce",
                 "💻 SaaS Builders",
                 "✏️ Freelancers",
                 "📱 App Developers",
