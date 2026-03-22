@@ -137,39 +137,38 @@ const autoReplies = [
   "Awesome! Let's connect soon.",
 ];
 
-export default function MessagesPage() {
+export default function ChatsPage() {
   const [chats, setChats] = useState(initialChats);
   const [activeChat, setActiveChat] = useState(initialChats[0]);
-  const [messages, setMessages] = useState(chatHistory[1]);
   const [input, setInput] = useState("");
   const [search, setSearch] = useState("");
   const [typing, setTyping] = useState(false);
-  const messagesEndRef = useRef(null);
+  const chatsEndRef = useRef(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, typing]);
+    chatsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chats, typing]);
 
   const openChat = (chat) => {
     setActiveChat(chat);
-    setMessages(chatHistory[chat.id] || []);
+    setChats(chatHistory[chat.id] || []);
     setChats((prev) =>
       prev.map((c) => (c.id === chat.id ? { ...c, unread: 0 } : c)),
     );
   };
 
-  const sendMessage = () => {
+  const sendChat = () => {
     if (!input.trim()) return;
     const now = new Date();
     const time =
       now.getHours() + ":" + String(now.getMinutes()).padStart(2, "0");
     const newMsg = { from: "me", text: input, time };
-    setMessages((prev) => [...prev, newMsg]);
+    setChats((prev) => [...prev, newMsg]);
     setInput("");
     setTyping(true);
     setTimeout(() => {
       setTyping(false);
-      setMessages((prev) => [
+      setChats((prev) => [
         ...prev,
         {
           from: "them",
@@ -183,7 +182,7 @@ export default function MessagesPage() {
   const handleKey = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      sendMessage();
+      sendChat();
     }
   };
 
@@ -197,7 +196,7 @@ export default function MessagesPage() {
         {/* INBOX */}
         <div className="w-72 flex-shrink-0 border-r border-[#1e1e1e] flex flex-col bg-[#0d0d0d]">
           <div className="p-4 border-b border-[#1e1e1e]">
-            <h2 className="text-base font-bold mb-3">💬 Messages</h2>
+            <h2 className="text-base font-bold mb-3">💬 Chats</h2>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-xs">
                 🔍
@@ -293,10 +292,10 @@ export default function MessagesPage() {
             </div>
           </div>
 
-          {/* Messages */}
+          {/* Chats */}
           <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-2.5">
             <div className="text-center text-xs text-white/25 py-1">Today</div>
-            {messages.map((msg, i) => (
+            {chats.map((msg, i) => (
               <div
                 key={i}
                 className={`flex gap-2 max-w-[72%] ${msg.from === "me" ? "self-end flex-row-reverse" : ""}`}
@@ -339,7 +338,7 @@ export default function MessagesPage() {
                 </div>
               </div>
             )}
-            <div ref={messagesEndRef} />
+            <div ref={chatsEndRef} />
           </div>
 
           {/* Composer */}
@@ -363,7 +362,7 @@ export default function MessagesPage() {
               className="flex-1 bg-[#141414] border border-[#1e1e1e] rounded-xl px-3 py-2.5 text-sm text-white placeholder:text-white/25 outline-none resize-none focus:border-orange-500 transition-colors font-sans"
             />
             <button
-              onClick={sendMessage}
+              onClick={sendChat}
               className="w-9 h-9 rounded-xl bg-orange-500 hover:bg-orange-600 text-white flex items-center justify-center flex-shrink-0 transition-colors text-base"
             >
               ➤

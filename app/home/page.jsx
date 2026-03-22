@@ -1,6 +1,9 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import ShareModal from "@/components/ShareModal";
+import CommentSection from "@/components/CommentSection";
+import PostMenu from "@/components/PostMenu";
 
 // ── Sample posts data ──
 const initialPosts = [
@@ -52,10 +55,10 @@ const initialPosts = [
 ];
 
 const navItems = [
-  { icon: "🏠", label: "Feed", href: "/feed" },
+  { icon: "🏠", label: "Home", href: "/home" },
   { icon: "🌐", label: "Explore", href: "/explore" },
   { icon: "👥", label: "Communities", href: "/communities" },
-  { icon: "💬", label: "Messages", href: "/messages" },
+  { icon: "💬", label: "Chats", href: "/messages" },
   { icon: "🔔", label: "Notifications", href: "/notifications", badge: 3 },
   { icon: "📅", label: "Events", href: "/events" },
 ];
@@ -79,15 +82,19 @@ const trending = [
   { tag: "#StartupIndia", count: "98 posts today" },
 ];
 
-export default function FeedPage() {
+export default function HomePage() {
   const [posts, setPosts] = useState(initialPosts);
   const [postText, setPostText] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
+  const [commentOpen, setCommentOpen] = useState(false);
+  const [commentPost, setCommentPost] = useState(null);
   const [joinedCircles, setJoinedCircles] = useState([]);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [sharePost, setSharePost] = useState(null);
 
   const toggleLike = (id) => {
-    setPosts(
-      posts.map((p) =>
+    setPosts((prev) =>
+      prev.map((p) =>
         p.id === id
           ? {
               ...p,
@@ -154,7 +161,7 @@ export default function FeedPage() {
             <Link
               key={item.label}
               href={item.href}
-              className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition-all ${item.label === "Feed" ? "bg-orange-500/10 text-orange-400 font-medium" : "text-white/50 hover:bg-[#1e1e1e] hover:text-white"}`}
+              className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition-all ${item.label === "Home" ? "bg-orange-500/10 text-orange-400 font-medium" : "text-white/50 hover:bg-[#1e1e1e] hover:text-white"}`}
             >
               <span className="text-base w-5 text-center">{item.icon}</span>
               {item.label}
@@ -204,11 +211,11 @@ export default function FeedPage() {
           </button>
         </aside>
 
-        {/* ── MAIN FEED ── */}
+        {/* ── MAIN HOME ── */}
         <main className="flex flex-col gap-3">
           {/* Topbar */}
           <div className="flex items-center justify-between">
-            <h1 className="text-base font-semibold">Your Feed</h1>
+            <h1 className="text-base font-semibold">For You</h1>
             <div className="flex gap-1.5">
               {["All", "Following", "Trending"].map((f) => (
                 <button
@@ -305,9 +312,7 @@ export default function FeedPage() {
                     <span className="text-xs px-2 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 whitespace-nowrap">
                       {post.niche}
                     </span>
-                    <span className="text-white/25 cursor-pointer px-1">
-                      ···
-                    </span>
+                    <PostMenu postId={post.id} authorName={post.name} />
                   </div>
                   <p className="text-sm text-white/70 leading-relaxed mb-3 whitespace-pre-line">
                     {post.text}
@@ -327,19 +332,48 @@ export default function FeedPage() {
                   <div className="flex gap-1">
                     <button
                       onClick={() => toggleLike(post.id)}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-all ${post.liked ? "text-orange-400 bg-orange-500/10" : "text-white/40 hover:bg-[#1e1e1e] hover:text-white"}`}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-all ${post.liked ? "text-red-500" : "text-white/40 hover:text-red-400 hover:bg-[#1e1e1e]"}`}
                     >
-                      👍 {post.likes}
+                      <span
+                        className={`transition-all duration-300 ${post.liked ? "scale-125" : "scale-100"}`}
+                        style={{
+                          display: "inline-block",
+                          transform: post.liked ? "scale(1.3)" : "scale(1)",
+                          transition:
+                            "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                        }}
+                      >
+                        {post.liked ? "❤️" : "🤍"}
+                      </span>
+                      {post.likes}
                     </button>
-                    <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-white/40 hover:bg-[#1e1e1e] hover:text-white transition-all">
+                    <button
+                      onClick={() => {
+                        setCommentPost(post);
+                        setCommentOpen(true);
+                      }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-white/40 hover:bg-[#1e1e1e] transition-all"
+                    >
                       💬 {post.comments}
                     </button>
-                    <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-white/40 hover:bg-[#1e1e1e] hover:text-white transition-all">
+                    <button
+                      onClick={() => {
+                        setSharePost(post);
+                        setShareOpen(true);
+                      }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-white/40 hover:bg-[#1e1e1e] transition-all"
+                    >
                       🔁 Share
                     </button>
                     <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-white/40 hover:bg-[#1e1e1e] hover:text-white transition-all">
                       🔖
                     </button>
+
+                    <CommentSection
+                      isOpen={commentOpen}
+                      onClose={() => setCommentOpen(false)}
+                      post={commentPost}
+                    />
                   </div>
                 </div>
               ))
@@ -349,12 +383,20 @@ export default function FeedPage() {
         {/* ── RIGHT SIDEBAR ── */}
         <aside className="flex flex-col gap-3">
           {/* Profile mini */}
-          <div className="bg-[#141414] border border-[#1e1e1e] rounded-2xl p-4">
+          <div
+            onClick={() => (window.location.href = "/profile")}
+            className="bg-[#141414] border border-[#1e1e1e] rounded-2xl p-4 cursor-pointer hover:border-none transition-none"
+          >
             <div className="flex flex-col items-center text-center mb-3">
               <div className="w-14 h-14 rounded-full bg-orange-500 flex items-center justify-center text-lg font-bold mb-2 border-4 border-orange-500/20">
                 YO
               </div>
-              <p className="text-sm font-semibold">Your Name</p>
+              <p
+                onClick={() => (window.location.href = "/profile")}
+                className="text-sm font-semibold cursor-pointer hover:none transition-none"
+              >
+                Your Name
+              </p>
               <p className="text-xs text-white/40 mb-3">
                 E-commerce Builder · Chennai
               </p>
@@ -421,6 +463,13 @@ export default function FeedPage() {
           </div>
         </aside>
       </div>
+
+      <ShareModal
+        isOpen={shareOpen}
+        onClose={() => setShareOpen(false)}
+        postText={sharePost?.text}
+        postId={sharePost?.id}
+      />
     </div>
   );
 }

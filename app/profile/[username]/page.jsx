@@ -84,8 +84,8 @@ export default function UserProfilePage() {
         <div className="text-5xl">👤</div>
         <h2 className="text-xl font-bold">User not found</h2>
         <p className="text-white/40 text-sm">This profile does not exist</p>
-        <Link href="/feed" className="px-5 py-2.5 bg-orange-500 rounded-xl text-sm font-semibold text-white">
-          Go back to Feed
+        <Link href="/home" className="px-5 py-2.5 bg-orange-500 rounded-xl text-sm font-semibold text-white">
+          Go back to Home
         </Link>
       </div>
     );
@@ -122,7 +122,7 @@ export default function UserProfilePage() {
               className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all border ${following ? "border-orange-500 text-orange-400 bg-orange-500/10" : "border-orange-500 text-orange-400 hover:bg-orange-500/10"}`}>
               {following ? "✓ Following" : "Follow"}
             </button>
-            <Link href="/messages"
+            <Link href="/chats"
               className="w-9 h-9 border border-[#2c2c2c] rounded-xl text-white/50 hover:border-orange-500 hover:text-white transition-all flex items-center justify-center text-sm">
               💬
             </Link>

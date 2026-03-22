@@ -1,12 +1,10 @@
 "use client";
-import { useTheme } from "@/components/ThemeProvider";
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 const unreadCount = 3; // later this will come from Supabase
 
 export default function Navbar() {
-  const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [exploreOpen, setExploreOpen] = useState(false);
   const pathname = usePathname();
@@ -15,8 +13,8 @@ export default function Navbar() {
   if (pathname === "/") return null;
 
   const navLinks = [
-    { label: "🏠 Feed", href: "/feed" },
-    { label: "💬 Messages", href: "/messages" },
+    { label: "🏠 Home", href: "/home" },
+    { label: "💬 Chats", href: "/chats" },
     { label: "🔔 Notifications", href: "/notifications" },
     { label: "📅 Events", href: "/events" },
   ];
@@ -32,9 +30,9 @@ export default function Navbar() {
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0d0d0d]/95 backdrop-blur-xl border-b border-orange-500/15">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
-          {/* Logo - clicks go back to feed */}
+          {/* Logo - clicks go back to home */}
           <Link
-            href="/feed"
+            href="/home"
             className="flex items-center gap-2.5 flex-shrink-0"
           >
             <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center">
@@ -108,12 +106,7 @@ export default function Navbar() {
 
           {/* Right side */}
           <div className="hidden md:flex items-center gap-2">
-            <button
-              onClick={toggleTheme}
-              className="w-9 h-9 rounded-full bg-[#1e1e1e] border border-[#2c2c2c] hover:border-orange-500 flex items-center justify-center cursor-pointer transition-colors text-sm"
-            >
-              {theme === "dark" ? "☀️" : "🌙"}
-            </button>
+            
             <Link
               href="/notifications"
               className="relative w-9 h-9 rounded-full bg-[#1e1e1e] border border-[#2c2c2c] hover:border-orange-500 flex items-center justify-center cursor-pointer transition-colors text-sm"

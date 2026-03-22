@@ -189,7 +189,7 @@ export default function SettingsPage() {
               <div className={cardClass}>
                 <p className="text-sm font-semibold mb-3">📱 Push Notifications</p>
                 {[
-                  { key: "messages", label: "New messages", desc: "When someone sends you a message" },
+                  { key: "chats", label: "New chats", desc: "When someone sends you a message" },
                   { key: "likes", label: "Likes & comments", desc: "When someone engages with your posts" },
                   { key: "connections", label: "Connection requests", desc: "When someone wants to connect" },
                   { key: "circles", label: "Circle activity", desc: "New posts in your circles" },
@@ -309,7 +309,7 @@ export default function SettingsPage() {
               <h2 className="text-lg font-bold mb-1">Danger Zone</h2>
               <p className="text-xs text-white/35 mb-5">Irreversible actions — proceed with caution</p>
               {[
-                { title: "Export Data", desc: "Download all your data including posts, messages, and profile info.", btn: "Export", action: "Data export started!", red: false },
+                { title: "Export Data", desc: "Download all your data including posts, chats, and profile info.", btn: "Export", action: "Data export started!", red: false },
                 { title: "Deactivate Account", desc: "Temporarily disable your account. You can reactivate anytime.", btn: "Deactivate", action: "Deactivation email sent!", red: true },
                 { title: "Delete Account", desc: "Permanently delete your account and all data. This cannot be undone.", btn: "Delete", action: "Account deletion requested!", red: true },
               ].map((item) => (

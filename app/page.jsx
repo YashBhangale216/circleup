@@ -167,7 +167,7 @@ export default function LoginPage() {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        window.location.href = "/feed"; // ← redirects to feed page
+        window.location.href = "/home"; // ← redirects to home page
       }, 1400);
     }
   };
@@ -182,7 +182,7 @@ export default function LoginPage() {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        window.location.href = "/feed"; // ← redirects to feed page
+        window.location.href = "/home"; // ← redirects to home page
       }, 1400);
     }
   };
@@ -262,7 +262,7 @@ export default function LoginPage() {
                 }}
                 className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-xl text-sm font-bold transition-colors"
               >
-                Go to my feed →
+                Go to my home →
               </button>
             </div>
           ) : (
