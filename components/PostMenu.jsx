@@ -4,12 +4,8 @@ import { useState, useRef, useEffect } from "react";
 const menuItems = [
   { icon: "🚫", label: "Not interested in this post" },
   { icon: "👤", label: "Unfollow", dynamic: true },
-  { icon: "📋", label: "Add to Bookmarks" },
-  { icon: "🔇", label: "Mute", dynamic: true },
   { icon: "⛔", label: "Block", dynamic: true },
-  { icon: "📊", label: "View post activity" },
   { icon: "🔗", label: "Copy link to post" },
-  { icon: "🚩", label: "Report post", red: true },
 ];
 
 export default function PostMenu({ postId, authorName }) {

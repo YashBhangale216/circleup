@@ -289,7 +289,7 @@ export default function HomePage() {
               .map((post) => (
                 <div
                   key={post.id}
-                  className="bg-[#141414] border border-[#1e1e1e] hover:border-[#2c2c2c] rounded-2xl p-4 transition-colors"
+                  className="border border-[#1e1e1e] hover:border-orange-500/20 rounded-2xl p-4 transition-colors"
                 >
                   <div className="flex items-center gap-2.5 mb-3">
                     <div
@@ -302,7 +302,7 @@ export default function HomePage() {
                       {post.initials}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-white">
+                      <p className="text-sm font-medium text-white hover:text-orange-400 cursor-pointer transition-colors">
                         {post.name}
                       </p>
                       <p className="text-xs text-white/30">
@@ -314,7 +314,7 @@ export default function HomePage() {
                     </span>
                     <PostMenu postId={post.id} authorName={post.name} />
                   </div>
-                  <p className="text-sm text-white/70 leading-relaxed mb-3 whitespace-pre-line">
+                  <p className="text-sm text-white/100 leading-relaxed mb-3 whitespace-pre-line">
                     {post.text}
                   </p>
                   {post.tags.length > 0 && (
