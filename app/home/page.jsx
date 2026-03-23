@@ -214,7 +214,7 @@ export default function HomePage() {
         {/* ── MAIN HOME ── */}
         <main className="flex flex-col gap-3">
           {/* Topbar */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between sticky top-16 bg-[#0d0d0d] z-10 py-3 border-b border-[#1e1e1e] mb-3">
             <h1 className="text-base font-semibold">For You</h1>
             <div className="flex gap-1.5">
               {["All", "Following", "Trending"].map((f) => (
@@ -302,7 +302,12 @@ export default function HomePage() {
                       {post.initials}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-white hover:text-orange-400 cursor-pointer transition-colors">
+                      <p
+                        onClick={() =>
+                          (window.location.href = `/profile/${post.name.toLowerCase().replace(/ /g, "-").replace(/\./g, "")}`)
+                        }
+                        className="text-sm font-medium text-white cursor-pointer hover:text-white-400 hover:underline transition-colors"
+                      >
                         {post.name}
                       </p>
                       <p className="text-xs text-white/30">
@@ -385,7 +390,7 @@ export default function HomePage() {
           {/* Profile mini */}
           <div
             onClick={() => (window.location.href = "/profile")}
-            className="bg-[#141414] border border-[#1e1e1e] rounded-2xl p-4 cursor-pointer hover:border-none transition-none"
+            className="border border-[#1e1e1e] rounded-2xl p-4 cursor-pointer hover:border-none transition-none"
           >
             <div className="flex flex-col items-center text-center mb-3">
               <div className="w-14 h-14 rounded-full bg-orange-500 flex items-center justify-center text-lg font-bold mb-2 border-4 border-orange-500/20">
@@ -419,7 +424,7 @@ export default function HomePage() {
           </div>
 
           {/* Suggested circles */}
-          <div className="bg-[#141414] border border-[#1e1e1e] rounded-2xl p-4">
+          <div className="border border-[#1e1e1e] rounded-2xl p-4">
             <p className="text-sm font-semibold mb-3">🔥 Suggested Circles</p>
             {suggestedCircles.map((c) => (
               <div
@@ -447,7 +452,7 @@ export default function HomePage() {
           </div>
 
           {/* Trending */}
-          <div className="bg-[#141414] border border-[#1e1e1e] rounded-2xl p-4">
+          <div className="border border-[#1e1e1e] rounded-2xl p-4">
             <p className="text-sm font-semibold mb-3">📈 Trending Today</p>
             {trending.map((t) => (
               <div
