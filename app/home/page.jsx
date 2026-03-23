@@ -58,7 +58,7 @@ const navItems = [
   { icon: "🏠", label: "Home", href: "/home" },
   { icon: "🌐", label: "Explore", href: "/explore" },
   { icon: "👥", label: "Communities", href: "/communities" },
-  { icon: "💬", label: "Chats", href: "/messages" },
+  { icon: "💬", label: "Chats", href: "/chats" },
   { icon: "🔔", label: "Notifications", href: "/notifications", badge: 3 },
   { icon: "📅", label: "Events", href: "/events" },
 ];

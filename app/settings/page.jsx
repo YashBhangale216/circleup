@@ -23,7 +23,7 @@ export default function SettingsPage() {
   const [website, setWebsite] = useState("circleup.app");
 
   // Notification toggles
-  const [notifs, setNotifs] = useState({ messages: true, likes: true, connections: true, circles: false, events: true, digest: true, updates: false, marketing: false });
+  const [notifs, setNotifs] = useState({ chats: true, likes: true, connections: true, circles: false, events: true, digest: true, updates: false, marketing: false });
 
   // Privacy
   const [privacy, setPrivacy] = useState({ online: true, receipts: true, indexing: false });
@@ -238,7 +238,7 @@ export default function SettingsPage() {
                 <p className="text-sm font-semibold mb-3">🔒 Activity Privacy</p>
                 {[
                   { key: "online", label: "Show online status", desc: "Let others see when you're active" },
-                  { key: "receipts", label: "Show read receipts", desc: "Let others know when you've read their messages" },
+                  { key: "receipts", label: "Show read receipts", desc: "Let others know when you've read their chats" },
                   { key: "indexing", label: "Allow profile indexing", desc: "Let search engines find your profile" },
                 ].map((item) => (
                   <div key={item.key} className="flex items-center justify-between py-2.5 border-b border-[#1e1e1e] last:border-b-0">

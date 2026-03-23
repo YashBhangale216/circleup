@@ -187,7 +187,7 @@ export default function ChatsPage() {
   };
 
   const filteredChats = chats.filter((c) =>
-    c.name.toLowerCase().includes(search.toLowerCase()),
+    c.name?.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -203,7 +203,7 @@ export default function ChatsPage() {
               </span>
               <input
                 type="text"
-                placeholder="Search messages..."
+                placeholder="Search chats..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full bg-[#141414] border border-[#1e1e1e] rounded-xl py-2 pl-8 pr-3 text-xs text-white placeholder:text-white/25 outline-none focus:border-orange-500 transition-colors"
